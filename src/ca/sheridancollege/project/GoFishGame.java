@@ -7,6 +7,11 @@ package ca.sheridancollege.project;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Vasco Lima Oct 8, 2024
+ */
+
 public class GoFishGame extends Game {
 
     GroupOfCards deck;

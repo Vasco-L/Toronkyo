@@ -6,6 +6,11 @@ package ca.sheridancollege.project;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Vasco Lima Oct 8, 2024
+ */
+
 public class GoFishPlayer extends Player {
 
     private GroupOfCards hand;

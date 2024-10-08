@@ -4,6 +4,11 @@
  */
 package ca.sheridancollege.project;
 
+/**
+ *
+ * @author Vasco Lima Oct 8, 2024
+ */
+
 public class GoFishCard extends Card {
     private String suit;
     private String rank;
