@@ -27,7 +27,7 @@ public class GoFishPlayer extends Player {
     }
     
     public int getScore() {
-        return score; // Getter for score
+        return score;
     }
 
     public void addScore(int points) {
@@ -36,6 +36,6 @@ public class GoFishPlayer extends Player {
 
     @Override
     public void play() {
-        // Logic for a player's turn in Go Fish
+       
     }
 }

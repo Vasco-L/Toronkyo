@@ -11,8 +11,8 @@ package ca.sheridancollege.project;
 public class DisplayScores {
     public void showScores(GoFishGame game) {
         System.out.println("Scores:");
-        for (Player player : game.getPlayers()) { // Use Player type here
-            GoFishPlayer goFishPlayer = (GoFishPlayer) player; // Cast to GoFishPlayer
+        for (Player player : game.getPlayers()) { 
+            GoFishPlayer goFishPlayer = (GoFishPlayer) player; 
             System.out.println(goFishPlayer.getName() + ": " + goFishPlayer.getScore());
         }
     }
