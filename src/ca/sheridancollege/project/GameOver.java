@@ -8,6 +8,10 @@ package ca.sheridancollege.project;
  *
  * @author limav
  */
+
 public class GameOver {
-    
+    public void endGame(GoFishGame game) {
+        System.out.println("Game Over!");
+        game.declareWinner();
+    }
 }

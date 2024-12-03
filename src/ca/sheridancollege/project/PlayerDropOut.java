@@ -8,6 +8,15 @@ package ca.sheridancollege.project;
  *
  * @author limav
  */
+
+import java.util.Scanner;
+
 public class PlayerDropOut {
-    
+    public boolean askToDropOut(GoFishPlayer player) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print(player.getName() + ", do you want to drop out? (yes/no): ");
+        String response = scanner.nextLine();
+
+        return response.equalsIgnoreCase("yes"); // Return true if the player wants to drop out
+    }
 }

@@ -33,6 +33,10 @@ public class Main {
         game.play();
 
         // Declare the winner
-        game.declareWinner();
+             if (game.isGameOver()) {
+            GameOver gameOver = new GameOver();
+            gameOver.endGame(game);
+        
+        }
     }
 }

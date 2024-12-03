@@ -14,14 +14,24 @@ import java.util.ArrayList;
 public class GoFishPlayer extends Player {
 
     private GroupOfCards hand;
+    private int score;
 
     public GoFishPlayer(String name) {
         super(name);
-        hand = new GroupOfCards(0); // Hand size starts at 0
+        hand = new GroupOfCards(0);// Hand size starts at 0
+        score = 0;
     }
 
     public GroupOfCards getHand() {
         return hand;
+    }
+    
+    public int getScore() {
+        return score; // Getter for score
+    }
+
+    public void addScore(int points) {
+        score += points; // Method to add points to score
     }
 
     @Override

@@ -16,12 +16,14 @@ public class GoFishGame extends Game {
 
     GroupOfCards deck;
     private ArrayList<GoFishPlayer> players;
+    private boolean gameOver;
 
     public GoFishGame(String name) {
         super(name);
         deck = new GroupOfCards(52); // Standard deck size
         players = new ArrayList<>();
         initializeDeck();
+        gameOver = false;
     }
 
     private void initializeDeck() {
@@ -37,6 +39,19 @@ public class GoFishGame extends Game {
         deck.setCards(cards);
         deck.shuffle();
     }
+    
+    public boolean isGameOver() {
+        return gameOver; // Return the current state of gameOver
+    }
+    
+    @Override
+    public ArrayList<Player> getPlayers() {
+        return new ArrayList<>(players);
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
 
     public void addPlayer(GoFishPlayer player) {
         players.add(player);
@@ -44,6 +59,7 @@ public class GoFishGame extends Game {
 
     @Override
     public void play() {
+        
         System.out.println("Game started. Players will take turns asking for cards.");
 
         // Deal 7 cards to each player
@@ -73,6 +89,17 @@ public class GoFishGame extends Game {
                         askedPlayer = p;
                         break;
                     }
+                }
+                // Ask if the player wants to drop out
+                PlayerDropOut dropOutHandler = new PlayerDropOut();
+                if (dropOutHandler.askToDropOut(player)) {
+                    System.out.println(player.getName() + " has dropped out of the game.");
+                    players.remove(player);
+                    if (players.size() == 1) {
+                        System.out.println(players.get(0).getName() + " is the last player remaining and wins the game!");
+                        return; // End the game if only one player remains
+                    }
+                    continue;
                 }
 
                 if (askedPlayer == null) {
@@ -122,7 +149,8 @@ public class GoFishGame extends Game {
                         count = 1;
                     }
                     if (count == 4) {
-                        System.out.println("You have a set of four " + currentRank + "s! You win!");
+                        declareWinner();
+//                        System.out.println("You have a set of four " + currentRank + "s! You win!");
                         return;
                     }
                 }
@@ -132,8 +160,16 @@ public class GoFishGame extends Game {
 
     @Override
     public void declareWinner() {
-        // Logic to determine and declare the winner
-        // For example, the player with the most sets of four cards wins
-        // This method is not needed in this simple implementation
+        GoFishPlayer winner = null;
+        int highestScore = -1;
+        for (GoFishPlayer player : players) {
+            if (player.getScore() > highestScore) {
+                highestScore = player.getScore();
+                winner = player;
+            }
+        }
+        if (winner != null) {
+            System.out.println("The winner is " + winner.getName() + " with a score of " + highestScore);
+        }
     }
 }
