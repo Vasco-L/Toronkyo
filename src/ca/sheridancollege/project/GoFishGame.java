@@ -70,8 +70,13 @@ public class GoFishGame extends Game {
             }
         }
 
-        while (true) {
-            for (GoFishPlayer player : players) {
+        int currentPlayerIndex = 0; // Start with the first player
+        while (players.size() > 1) { // Continue until there's only one player left
+            GoFishPlayer player = players.get(currentPlayerIndex);
+                System.out.println("\nScores:");
+                for (GoFishPlayer p : players) {
+                System.out.println(p.getName() + ": " + p.getScore());
+                }
                 System.out.println("\n" + player.getName() + "'s turn:");
                 System.out.println("Hand: " + player.getHand().getCards());
 
@@ -92,14 +97,9 @@ public class GoFishGame extends Game {
                 }
                 // Ask if the player wants to drop out
                 PlayerDropOut dropOutHandler = new PlayerDropOut();
-                if (dropOutHandler.askToDropOut(player)) {
-                    System.out.println(player.getName() + " has dropped out of the game.");
-                    players.remove(player);
-                    if (players.size() == 1) {
-                        System.out.println(players.get(0).getName() + " is the last player remaining and wins the game!");
-                        return; // End the game if only one player remains
-                    }
-                    continue;
+                dropOutHandler.handleDropOut(player, players);
+                if (players.size() <= 1) {
+                    return; // End the game if only one player remains
                 }
 
                 if (askedPlayer == null) {
@@ -150,16 +150,17 @@ public class GoFishGame extends Game {
                     }
                     if (count == 4) {
                         declareWinner();
-//                        System.out.println("You have a set of four " + currentRank + "s! You win!");
                         return;
                     }
                 }
+                currentPlayerIndex++;
+            if (currentPlayerIndex >= players.size()) {
+                currentPlayerIndex = 0; // Reset to the first player if we reach the end of the list
+                }
             }
         }
-    }
-
-    @Override
-    public void declareWinner() {
+        @Override
+        public void declareWinner() {
         GoFishPlayer winner = null;
         int highestScore = -1;
         for (GoFishPlayer player : players) {
@@ -168,8 +169,9 @@ public class GoFishGame extends Game {
                 winner = player;
             }
         }
-        if (winner != null) {
+                if (winner != null) {
             System.out.println("The winner is " + winner.getName() + " with a score of " + highestScore);
         }
     }
-}
+   }
+
