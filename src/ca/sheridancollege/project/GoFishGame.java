@@ -149,6 +149,7 @@ public class GoFishGame extends Game {
                         count = 1;
                     }
                     if (count == 4) {
+                        player.addScore(1);
                         declareWinner();
                         return;
                     }
