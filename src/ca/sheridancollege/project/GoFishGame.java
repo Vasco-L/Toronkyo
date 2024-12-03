@@ -135,23 +135,23 @@ public class GoFishGame extends Game {
                 }
 
                 // Check if the player has a set of four cards
-                int count = 0;
-                String currentRank = null;
-                for (Card card : player.getHand().getCards()) {
-                    GoFishCard goFishCard = (GoFishCard) card;
-                    if (currentRank == null) {
-                        currentRank = goFishCard.getRank();
-                        count = 1;
-                    } else if (goFishCard.getRank().equals(currentRank)) {
-                        count++;
-                    } else {
-                        currentRank = goFishCard.getRank();
-                        count = 1;
+                String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+        
+                for (String currentRank : ranks) {
+                    int count = 0;
+                    for (Card card : player.getHand().getCards()) {
+                        GoFishCard goFishCard = (GoFishCard) card;
+                        if (goFishCard.getRank().equals(currentRank)) {
+                            count++;
+                           }
                     }
                     if (count == 4) {
-                        player.addScore(1);
-                        declareWinner();
-                        return;
+                        // Update the score for the player
+                       player.addScore(1); // Add 1 point for each set of four cards
+                       System.out.println(player.getName() + " has collected a set of four " + currentRank + " cards and earned 1 point!");
+                
+                        // Remove those cards from the player's hand
+                        player.getHand().getCards().removeIf(card -> ((GoFishCard) card).getRank().equals(currentRank));
                     }
                 }
                 currentPlayerIndex++;
@@ -159,6 +159,7 @@ public class GoFishGame extends Game {
                 currentPlayerIndex = 0; // Reset to the first player if we reach the end of the list
                 }
             }
+        declareWinner();
         }
         @Override
         public void declareWinner() {
